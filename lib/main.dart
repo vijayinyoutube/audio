@@ -29,9 +29,6 @@ AudioCache audioCache;
 AudioPlayer audioPlayer;
 Duration _duration = new Duration();
 Duration _position = new Duration();
-double _sigmaX = 6.5; // from 0-10
-double _sigmaY = 6.5; // from 0-10
-double _opacity = 20.1; // from 0-1.0
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
@@ -66,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: _sigmaX, sigmaY: _sigmaY),
+          filter: ImageFilter.blur(sigmaX: 6.5, sigmaY: 6.5),
           child: Column(
             children: [
               SizedBox(
