@@ -22,7 +22,6 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-final player=AudioCache();
 AudioPlayer _players;
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -38,7 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               child: FlatButton(
                 onPressed: () {
-                  player.play('songs1.mp3');
+                  final player = AudioCache();
+                  player.play("songs1.mp3");
                 },
                 child: Text("play"),
               ),
