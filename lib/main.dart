@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
               activeColor: Colors.blue,
               inactiveColor: Colors.pink,
               value: _position.inSeconds.toDouble(),
-              min: 0.0,
+              // min: 0.0,
               max: _duration.inSeconds.toDouble(),
               onChanged: (double value) {
                 setState(() {
