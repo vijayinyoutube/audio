@@ -22,9 +22,28 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-AudioPlayer _players;
+AudioCache audioCache;
+AudioPlayer audioPlayer;
+Duration _duration = new Duration();
+Duration _position = new Duration();
 
 class _MyHomePageState extends State<MyHomePage> {
+
+
+  
+  void initState() {
+    super.initState();
+    audioPlayer = new AudioPlayer();
+    audioCache = new AudioCache(fixedPlayer: audioPlayer);
+    audioPlayer.durationHandler = (d) => setState(() {
+          _duration = d;
+        });
+
+    audioPlayer.positionHandler = (p) => setState(() {
+          _position = p;
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,32 +55,50 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Container(
               child: FlatButton(
-                onPressed: () {
-                  final player = AudioCache();
-                  player.play("songs1.mp3");
+                onPressed: () async {
+                  audioCache.play("songs1.mp3");
                 },
                 child: Text("play"),
               ),
             ),
             Container(
               child: FlatButton(
-                onPressed: () async {
-                  _players..pause();
+                onPressed: () {
+                  audioPlayer.pause();
                 },
                 child: Text("pause"),
               ),
             ),
             Container(
               child: FlatButton(
-                onPressed: () async {
-                  _players.stop();
+                onPressed: () {
+                  audioPlayer.stop();
                 },
                 child: Text("stop"),
               ),
+            ),
+            Slider(
+              activeColor: Colors.blue,
+              inactiveColor: Colors.pink,
+              value: _position.inSeconds.toDouble(),
+              min: 0.0,
+              max: _duration.inSeconds.toDouble(),
+              onChanged: (double value) {
+                setState(() {
+                  seekToSecond(value.toInt());
+                  value = value;
+                });
+              },
             ),
           ],
         ),
       ),
     );
   }
+}
+
+void seekToSecond(int second) {
+  Duration newDuration = Duration(seconds: second);
+
+  audioPlayer.seek(newDuration);
 }
