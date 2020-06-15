@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(),
       home: MyHomePage(),
@@ -28,11 +29,13 @@ Duration _duration = new Duration();
 Duration _position = new Duration();
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
-  
+  @override
   void initState() {
     super.initState();
+    initiPlayer();
+  }
+
+  void initiPlayer() {
     audioPlayer = new AudioPlayer();
     audioCache = new AudioCache(fixedPlayer: audioPlayer);
     audioPlayer.durationHandler = (d) => setState(() {
@@ -55,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Container(
               child: FlatButton(
-                onPressed: () async {
+                onPressed: () {
                   audioCache.play("songs1.mp3");
                 },
                 child: Text("play"),
